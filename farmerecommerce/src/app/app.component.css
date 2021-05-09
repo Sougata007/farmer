@@ -1,0 +1,13 @@
+.nav-link{
+    font-size: 1.5rem;
+    color: black;
+}
+.navbar-brand{
+    font-size: 2.0rem;
+    font-weight: 600;
+    color: black;
+
+}
+.navbar{
+    background-color: #E9C17C;
+}

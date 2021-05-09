@@ -1,0 +1,10 @@
+.row{
+    margin-top: 20px;
+}
+.card-header{
+    font-weight: 600;
+    text-align: center;
+} 
+label{
+    font-weight: 600;
+}
