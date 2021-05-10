@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.infy.dto.CustomerDTO;
 import com.infy.dto.UserDTO;
+import com.infy.dto.productDTO;
 import com.infy.exception.InfyBankException;
 import com.infy.service.CustomerService;
 
@@ -36,19 +37,6 @@ public class CustomerAPI {
 		List<CustomerDTO> customerList = customerService.getAllCustomers();
 		return new ResponseEntity<>(customerList, HttpStatus.OK);
 	}
-
-	@GetMapping(value = "/customers/{customerId}")
-	public ResponseEntity<CustomerDTO> getCustomer(@PathVariable Integer customerId) throws InfyBankException {
-		CustomerDTO customer = customerService.getCustomer(customerId);
-		return new ResponseEntity<>(customer, HttpStatus.OK);
-	}
-
-	@PostMapping(value = "/customers")
-	public ResponseEntity<String> addCustomer(@RequestBody CustomerDTO customer) throws InfyBankException {
-		Integer customerId = customerService.addCustomer(customer);
-		String successMessage = environment.getProperty("API.INSERT_SUCCESS") + customerId;
-		return new ResponseEntity<>(successMessage, HttpStatus.CREATED);
-	}
 	@CrossOrigin(origins = "http://localhost:4200")
 	@PostMapping(value = "/user")
 	public ResponseEntity<String> registerUser(@RequestBody UserDTO userDTO) throws InfyBankException{
@@ -62,7 +50,18 @@ public class CustomerAPI {
 		String password=customerService.loginUser(username);
 		return new ResponseEntity<>(password,HttpStatus.OK);
 	}
-	
+	@CrossOrigin(origins = "http://localhost:4200")
+	@GetMapping(value = "/products")
+	public ResponseEntity<List<productDTO>> getCatalogue() throws InfyBankException{
+		List<productDTO> list=customerService.getCatalogue();
+		return new ResponseEntity<>(list,HttpStatus.OK);
+	}
+	@CrossOrigin(origins = "http://localhost:4200")
+	@GetMapping(value = "/{username}")
+	public ResponseEntity<String> getUserType(@PathVariable String username) throws InfyBankException{
+		String userType=customerService.getUserType(username);
+		return new ResponseEntity<>(userType,HttpStatus.OK);
+	}
 	@PutMapping(value = "/customers/{customerId}")
 	public ResponseEntity<String> updateCustomer(@PathVariable Integer customerId, @RequestBody CustomerDTO customer)
 			throws InfyBankException {

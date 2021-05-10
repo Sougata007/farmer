@@ -11,10 +11,13 @@ import org.springframework.transaction.annotation.Transactional;
 import com.infy.exception.InfyBankException;
 import com.infy.repository.CustomerRepository;
 import com.infy.repository.UserRepository;
+import com.infy.repository.productRepository;
 import com.infy.entity.Customer;
+import com.infy.entity.Product;
 import com.infy.entity.User;
 import com.infy.dto.CustomerDTO;
 import com.infy.dto.UserDTO;
+import com.infy.dto.productDTO;
 
 @Service(value = "customerService")
 @Transactional
@@ -25,6 +28,9 @@ public class CustomerServiceImpl implements CustomerService {
 	
 	@Autowired
 	private UserRepository userRepository;
+	
+	@Autowired
+	private productRepository productrepo;
 
 	@Override
 	public CustomerDTO getCustomer(Integer customerId) throws InfyBankException {
@@ -87,6 +93,7 @@ public class CustomerServiceImpl implements CustomerService {
 		user.setEmailId(userDTO.getEmailId());
 		user.setPassword(userDTO.getPassword());
 		user.setUsername(userDTO.getUsername());
+		user.setUserType(userDTO.getUserType());
 		userRepository.save(user);
 	}
 
@@ -95,6 +102,27 @@ public class CustomerServiceImpl implements CustomerService {
 		Optional<User> optional=userRepository.findById(username);
 		User user=optional.orElseThrow(()->new InfyBankException("UserName not found"));
 		return user.getPassword();
+	}
+
+	@Override
+	public String getUserType(String username) throws InfyBankException {
+		Optional<User> optional=userRepository.findById(username);
+		User user=optional.orElseThrow(()->new InfyBankException("UserName not found"));
+		return user.getUserType();
+	}
+
+	@Override
+	public List<productDTO> getCatalogue() throws InfyBankException {
+		Iterable<Product> products = productrepo.findAll();
+		List<productDTO> dtos=new ArrayList<>();
+		products.forEach((obj) -> {
+			productDTO dto=new productDTO();
+			dto.setProductName(obj.getProductName());
+			dto.setProductPrice(obj.getProductPrice());
+			dto.setSellerName(obj.getSellerName());
+			dtos.add(dto);
+		});
+		return dtos;
 	}
 
 }
