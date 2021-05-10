@@ -1,0 +1,32 @@
+<div class="container">
+    <div class="row justify-content-center" *ngIf="data1 == 'buyer' ">
+        <div class="col-xl-8">
+            <table class="table">
+                <thead class="thead-dark">
+                  <tr>
+                    <th scope="col">Item Name</th>
+                    <th scope="col">Item Price</th>
+                    <th scope="col">Quatity</th>
+                    <th scope="col">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let p of product">
+                    <td>{{p.productName}}</td>
+                    <td>{{p.productPrice}}</td>
+                    <td><form [formGroup]="quantForm">
+                        <div class="form-group">
+                            <input type="number" class="form-control" formControlName="Quantity" #Quantity min="0">
+                        </div> 
+                    </form>
+                    </td>
+                    <td>
+                    <button class="btn btn-primary" [routerLink]="'/cart'" 
+                    (click)="sendValueQty(Quantity.value)">ADD TO CART</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+        </div>
+    </div>
+</div>

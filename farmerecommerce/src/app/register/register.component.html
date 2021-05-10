@@ -22,6 +22,12 @@
                         <p *ngIf="registerform.controls.username.touched && registerform.controls.username.pristine" class="text-danger">This field cant be Empty</p>
                     </div>
                     <div class="form-group">
+                        <input class="form-check-input-inline" type="radio" name="userType" id="inlineRadio1" value="buyer"
+                        formControlName="userType" #userType>Buyer
+                        <input class="form-check-input-inline" type="radio" name="userType" id="inlineRadio1" value="Seller"
+                        formControlName="userType" #userType>Seller
+                    </div>
+                    <div class="form-group">
                         <label>Enter Your Password</label>
                         <input type="text" class="form-control" formControlName="password" #password>
                         <p *ngIf="(registerform.controls.password.dirty || registerform.controls.password.touched) && !registerform.controls.password.valid" class="text-danger">Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters

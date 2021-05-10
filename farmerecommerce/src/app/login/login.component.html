@@ -1,5 +1,5 @@
 <div class="container">
-    <div class="row justify-content-center">
+    <div class="row justify-content-center" *ngIf="!passcheck">
         <div class="col-md-5">
            <div class="card">
                <div class="card-header">WELCOME</div>
@@ -7,13 +7,13 @@
                 <form [formGroup]="loginForm">
                     <div class="form-group">
                         <label>USERNAME</label>
-                        <input type="text" class="form-control" formControlName="UserName" #UserName>
-                        <p *ngIf="loginForm.controls.UserName.touched && loginForm.controls.UserName.pristine" class="text-danger">This field cant be Empty</p>
+                        <input type="text" class="form-control" formControlName="username" #username>
+                        <p *ngIf="loginForm.controls.username.touched && loginForm.controls.username.pristine" class="text-danger">This field cant be Empty</p>
                     </div>
                     <div class="form-group">
                         <label>PASSWORD</label>
-                        <input type="password" class="form-control" formControlName="Password" #Password>
-                        <p *ngIf="loginForm.controls.Password.touched && loginForm.controls.Password.pristine" class="text-danger">This field cant be Empty</p>
+                        <input type="password" class="form-control" formControlName="password" #password>
+                        <p *ngIf="loginForm.controls.password.touched && loginForm.controls.password.pristine" class="text-danger">This field cant be Empty</p>
                     </div>
                     <button class="btn btn-primary" (click)="check()"
                     style="width: 100%;">LOGIN</button>
@@ -24,4 +24,5 @@
            </div>
         </div>
     </div>
+    <app-dashboard *ngIf="passcheck"></app-dashboard>
 </div>
