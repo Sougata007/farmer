@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder,FormGroup,Validators} from '@angular/forms';
-
+import {FarmerService} from '../farmer.service';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -8,19 +8,28 @@ import {FormBuilder,FormGroup,Validators} from '@angular/forms';
 })
 export class RegisterComponent implements OnInit {
   registerform: FormGroup|any;
-  constructor(private fb:FormBuilder) { }
-
+  constructor(private fb:FormBuilder,private serv:FarmerService) { }
+  toggle:any=false;
   ngOnInit(): void {
     this.registerform=this.fb.group({
-      "FullName":['',[Validators.required]],
-      "Email":['',[Validators.required]],
-      "UserName":['',[Validators.required]],
-      "Password":['',[Validators.required]]
+      "fullname":['',[Validators.required]],
+      "emailId":['',[Validators.required]],
+      "username":['',[Validators.required]],
+      "password":['',[Validators.required]]
       //bugs at pattern validation
     })
   }
   check(){
-    console.log(this.registerform.value);
+    this.serv.register(this.registerform.value).subscribe(
+      x => {
+        alert(this.registerform.value.username+" is successfully registered.Login Now");
+        this.toggle=true;
+      },
+      y => {
+        alert(this.registerform.value.username+" is successfully registered.Login Now");
+        this.toggle=true;
+      }
+    )
   }
 
 }

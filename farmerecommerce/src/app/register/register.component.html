@@ -7,29 +7,32 @@
                    <form [formGroup]="registerform">
                     <div class="form-group">
                         <label>Enter Your Full Name</label>
-                        <input type="text" class="form-control" formControlName="FullName" #FullName>
-                        <p *ngIf="registerform.controls.FullName.touched && registerform.controls.FullName.pristine" class="text-danger">This field cant be Empty</p>
+                        <input type="text" class="form-control" formControlName="fullname" #fullname>
+                        <p *ngIf="registerform.controls.fullname.touched && registerform.controls.fullname.pristine" class="text-danger">This field cant be Empty</p>
                     </div>
                     <div class="form-group">
                         <label>Enter Your Email</label>
-                        <input type="text" class="form-control" formControlName="Email" #Email>
-                        <p *ngIf="registerform.controls.Email.dirty && !registerform.controls.Email.valid" class="text-danger">Invalid Email Format</p>
-                        <p *ngIf="registerform.controls.Email.touched && registerform.controls.Email.pristine" class="text-danger">This field cant be Empty</p>
+                        <input type="text" class="form-control" formControlName="emailId" #emailId>
+                        <p *ngIf="registerform.controls.emailId.dirty && !registerform.controls.emailId.valid" class="text-danger">Invalid Email Format</p>
+                        <p *ngIf="registerform.controls.emailId.touched && registerform.controls.emailId.pristine" class="text-danger">This field cant be Empty</p>
                     </div>
                     <div class="form-group">
                         <label>Enter Your User Name</label>
-                        <input type="text" class="form-control" formControlName="UserName" #UserName>
-                        <p *ngIf="registerform.controls.UserName.touched && registerform.controls.UserName.pristine" class="text-danger">This field cant be Empty</p>
+                        <input type="text" class="form-control" formControlName="username" #username>
+                        <p *ngIf="registerform.controls.username.touched && registerform.controls.username.pristine" class="text-danger">This field cant be Empty</p>
                     </div>
                     <div class="form-group">
                         <label>Enter Your Password</label>
-                        <input type="text" class="form-control" formControlName="Password" #Password>
-                        <p *ngIf="(registerform.controls.Password.dirty || registerform.controls.Password.touched) && !registerform.controls.Password.valid" class="text-danger">Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters
+                        <input type="text" class="form-control" formControlName="password" #password>
+                        <p *ngIf="(registerform.controls.password.dirty || registerform.controls.password.touched) && !registerform.controls.password.valid" class="text-danger">Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters
                         </p>
-                        <p *ngIf="registerform.controls.Password.touched && registerform.controls.Password.pristine" class="text-danger">This field cant be Empty</p>
+                        <p *ngIf="registerform.controls.password.touched && registerform.controls.password.pristine" class="text-danger">This field cant be Empty</p>
                     </div>
                     <button class="btn btn-primary" (click)="check()"
                     style="width: 100%;">REGISTER</button>
+                    <button class="btn btn-warning" [routerLink]="'/login'"
+                    *ngIf="toggle == true"
+                    style="width: 100%; margin-top: 5px;">LOGIN NOW</button>
                    </form>
                 </div>
             </div>
