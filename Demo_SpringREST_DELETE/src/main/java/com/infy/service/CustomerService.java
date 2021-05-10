@@ -3,6 +3,7 @@ package com.infy.service;
 import java.util.List;
 
 import com.infy.dto.CustomerDTO;
+import com.infy.dto.UserDTO;
 import com.infy.exception.InfyBankException;
 
 public interface CustomerService {
@@ -11,4 +12,7 @@ public interface CustomerService {
 	public Integer addCustomer(CustomerDTO customer) throws InfyBankException;
 	public void updateCustomer(Integer customerId, String emailId) throws InfyBankException;
 	public void deleteCustomer(Integer customerId) throws InfyBankException;
+	
+	public void registerUser(UserDTO userDTO) throws InfyBankException;
+	public String loginUser(String username) throws InfyBankException;
 }

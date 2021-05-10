@@ -10,9 +10,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.infy.exception.InfyBankException;
 import com.infy.repository.CustomerRepository;
+import com.infy.repository.UserRepository;
 import com.infy.entity.Customer;
-
+import com.infy.entity.User;
 import com.infy.dto.CustomerDTO;
+import com.infy.dto.UserDTO;
 
 @Service(value = "customerService")
 @Transactional
@@ -20,6 +22,9 @@ public class CustomerServiceImpl implements CustomerService {
 
 	@Autowired
 	private CustomerRepository customerRepository;
+	
+	@Autowired
+	private UserRepository userRepository;
 
 	@Override
 	public CustomerDTO getCustomer(Integer customerId) throws InfyBankException {
@@ -73,6 +78,23 @@ public class CustomerServiceImpl implements CustomerService {
 		Optional<Customer> customer = customerRepository.findById(customerId);
 		customer.orElseThrow(() -> new InfyBankException("Service.CUSTOMER_NOT_FOUND"));
 		customerRepository.deleteById(customerId);
+	}
+
+	@Override
+	public void registerUser(UserDTO userDTO) throws InfyBankException {
+		User user=new User();
+		user.setFullname(userDTO.getFullname());
+		user.setEmailId(userDTO.getEmailId());
+		user.setPassword(userDTO.getPassword());
+		user.setUsername(userDTO.getUsername());
+		userRepository.save(user);
+	}
+
+	@Override
+	public String loginUser(String username) throws InfyBankException {
+		Optional<User> optional=userRepository.findById(username);
+		User user=optional.orElseThrow(()->new InfyBankException("UserName not found"));
+		return user.getPassword();
 	}
 
 }

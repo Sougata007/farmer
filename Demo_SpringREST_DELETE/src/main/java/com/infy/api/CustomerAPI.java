@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.infy.dto.CustomerDTO;
+import com.infy.dto.UserDTO;
 import com.infy.exception.InfyBankException;
 import com.infy.service.CustomerService;
 
@@ -47,7 +49,20 @@ public class CustomerAPI {
 		String successMessage = environment.getProperty("API.INSERT_SUCCESS") + customerId;
 		return new ResponseEntity<>(successMessage, HttpStatus.CREATED);
 	}
-
+	@CrossOrigin(origins = "http://localhost:4200")
+	@PostMapping(value = "/user")
+	public ResponseEntity<String> registerUser(@RequestBody UserDTO userDTO) throws InfyBankException{
+		customerService.registerUser(userDTO);
+		String successMessage = "Successfully Registered";
+		return new ResponseEntity<>(successMessage,HttpStatus.CREATED);
+	}
+	@CrossOrigin(origins = "http://localhost:4200")
+	@GetMapping(value = "/user/{username}")
+	public ResponseEntity<String> loginUser(@PathVariable String username) throws InfyBankException{
+		String password=customerService.loginUser(username);
+		return new ResponseEntity<>(password,HttpStatus.OK);
+	}
+	
 	@PutMapping(value = "/customers/{customerId}")
 	public ResponseEntity<String> updateCustomer(@PathVariable Integer customerId, @RequestBody CustomerDTO customer)
 			throws InfyBankException {
