@@ -11,6 +11,13 @@ create table customer(
    constraint ps_customer_id_pk primary key (customer_id)
 );
 
+create table User(
+    fullname varchar(100),
+    email_id varchar(100),
+    username varchar(100),
+    password varchar(100),
+    constraint ps_username_pk primary key (username)
+);
 
 insert into customer (customer_id, email_id, name, date_of_birth) values (1, 'martin@infy.com', 'Martin', sysdate()- interval 9000 day);
 insert into customer (customer_id, email_id, name, date_of_birth) values (2, 'tim@infy.com', 'Tim', sysdate()- interval 5000 day);
@@ -18,3 +25,4 @@ insert into customer (customer_id, email_id, name, date_of_birth) values (3, 'ja
 
 commit;
 select * from customer;
+desc User;
