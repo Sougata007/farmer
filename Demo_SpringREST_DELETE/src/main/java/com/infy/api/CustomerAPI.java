@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.infy.dto.CartDTO;
 import com.infy.dto.CustomerDTO;
 import com.infy.dto.UserDTO;
 import com.infy.dto.productDTO;
@@ -45,10 +46,30 @@ public class CustomerAPI {
 		return new ResponseEntity<>(successMessage,HttpStatus.CREATED);
 	}
 	@CrossOrigin(origins = "http://localhost:4200")
+	@PostMapping(value = "/cart")
+	public ResponseEntity<String> makeCart(@RequestBody CartDTO cartDTO) throws InfyBankException{
+		customerService.makeCart(cartDTO);
+		String successMessage = "sucessfully made";
+		return new ResponseEntity<>(successMessage,HttpStatus.CREATED);
+	}
+	@CrossOrigin(origins = "http://localhost:4200")
+	@GetMapping(value = "/carts")
+	public ResponseEntity<List<CartDTO>> getCartItems() throws InfyBankException{
+		List<CartDTO> list=customerService.getCart();
+		return new ResponseEntity<>(list,HttpStatus.OK);
+	}
+	@CrossOrigin(origins = "http://localhost:4200")
 	@GetMapping(value = "/user/{username}")
 	public ResponseEntity<String> loginUser(@PathVariable String username) throws InfyBankException{
 		String password=customerService.loginUser(username);
 		return new ResponseEntity<>(password,HttpStatus.OK);
+	}
+	@CrossOrigin(origins = "http://localhost:4200")
+	@PostMapping(value = "/product")
+	public ResponseEntity<String> addProduct(@RequestBody productDTO dto) throws InfyBankException{
+		customerService.addProduct(dto);
+		String successMessage = "Product added";
+		return new ResponseEntity<>(successMessage,HttpStatus.CREATED);
 	}
 	@CrossOrigin(origins = "http://localhost:4200")
 	@GetMapping(value = "/products")
@@ -69,11 +90,25 @@ public class CustomerAPI {
 		String successMessage = environment.getProperty("API.UPDATE_SUCCESS");
 		return new ResponseEntity<>(successMessage, HttpStatus.OK);
 	}
-
+    
 	@DeleteMapping(value = "/customers/{customerId}")
 	public ResponseEntity<String> deleteCustomer(@PathVariable Integer customerId) throws InfyBankException {
 		customerService.deleteCustomer(customerId);
 		String successMessage = environment.getProperty("API.DELETE_SUCCESS");
 		return new ResponseEntity<>(successMessage, HttpStatus.OK);
 	}
+	@CrossOrigin(origins = "http://localhost:4200")
+	@DeleteMapping(value = "/product/{sellerName}")
+	public ResponseEntity<String> deleteProduct(@PathVariable String sellerName) throws InfyBankException{
+		customerService.deleteProduct(sellerName);
+		String successMessage = "Deleted Successfully";
+		return new ResponseEntity<>(successMessage,HttpStatus.OK);
+	}
+	@CrossOrigin(origins = "http://localhost:4200")
+	@PutMapping(value = "/cart/{productName}")
+	public ResponseEntity<String> updateCartPrice(@PathVariable String productName,@RequestBody CartDTO cartDTO) throws InfyBankException{
+			customerService.updateCartPrice(productName,cartDTO.getPrice());
+			String successMessage = "Successfully Updated";
+			return new ResponseEntity<>(successMessage,HttpStatus.OK);
+}
 }

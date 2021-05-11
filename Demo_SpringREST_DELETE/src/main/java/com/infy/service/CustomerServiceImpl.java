@@ -9,12 +9,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.infy.exception.InfyBankException;
+import com.infy.repository.CartRepository;
 import com.infy.repository.CustomerRepository;
 import com.infy.repository.UserRepository;
 import com.infy.repository.productRepository;
+import com.infy.entity.Cart;
 import com.infy.entity.Customer;
 import com.infy.entity.Product;
 import com.infy.entity.User;
+import com.infy.dto.CartDTO;
 import com.infy.dto.CustomerDTO;
 import com.infy.dto.UserDTO;
 import com.infy.dto.productDTO;
@@ -31,7 +34,9 @@ public class CustomerServiceImpl implements CustomerService {
 	
 	@Autowired
 	private productRepository productrepo;
-
+	
+	@Autowired
+	private CartRepository cartRepository;
 	@Override
 	public CustomerDTO getCustomer(Integer customerId) throws InfyBankException {
 		Optional<Customer> optional = customerRepository.findById(customerId);
@@ -125,4 +130,48 @@ public class CustomerServiceImpl implements CustomerService {
 		return dtos;
 	}
 
+	@Override
+	public void makeCart(CartDTO cartDTO) throws InfyBankException {
+		Cart cart=new Cart();
+		cart.setProductName(cartDTO.getProductName());
+		cart.setPrice(cartDTO.getPrice());
+		cartRepository.save(cart);
+	}
+
+	@Override
+	public List<CartDTO> getCart() throws InfyBankException {
+		Iterable<Cart> cartItems = cartRepository.findAll();
+		List<CartDTO> cartDTOs= new ArrayList<>();
+		cartItems.forEach((obj) -> {
+			CartDTO cartDTO=new CartDTO();
+			cartDTO.setProductName(obj.getProductName());
+			cartDTO.setPrice(obj.getPrice());
+			cartDTOs.add(cartDTO);
+		});
+		return cartDTOs;
+	}
+
+	@Override
+	public void updateCartPrice(String productName, String price) throws InfyBankException {
+		Optional<Cart> car = cartRepository.findById(productName);
+		Cart c = car.orElseThrow(() -> new InfyBankException("Service.USER_NOT_FOUND"));
+		c.setPrice(price);
+	}
+
+	@Override
+	public void addProduct(productDTO dto) throws InfyBankException {
+		Product product=new Product();
+		product.setSellerName(dto.getSellerName());
+		product.setProductName(dto.getProductName());
+		product.setProductPrice(dto.getProductPrice());
+		productrepo.save(product);
+	}
+
+	@Override
+	public void deleteProduct(String seller) throws InfyBankException {
+		Optional<Product> product = productrepo.findById(seller);
+		product.orElseThrow(() -> new InfyBankException("Service.USER_NOT_FOUND"));
+		productrepo.deleteById(seller);
+		
+	}
 }

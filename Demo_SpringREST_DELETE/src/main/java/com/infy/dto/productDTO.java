@@ -22,4 +22,5 @@ public class productDTO {
 	public void setProductPrice(String productPrice) {
 		this.productPrice = productPrice;
 	}
+	
 }

@@ -27,9 +27,12 @@ create table Product(
 	constraint ps_seller_name_pk primary key (seller_name)
 );
 
-insert into customer (customer_id, email_id, name, date_of_birth) values (1, 'martin@infy.com', 'Martin', sysdate()- interval 9000 day);
-insert into customer (customer_id, email_id, name, date_of_birth) values (2, 'tim@infy.com', 'Tim', sysdate()- interval 5000 day);
-insert into customer (customer_id, email_id, name, date_of_birth) values (3, 'jack@infy.com', 'Jack', sysdate()- interval 6000 day);
+create table Cart(
+    product_name varchar(100),
+    price varchar(200),
+    constraint ps_product_name_pk primary key (product_name)
+);
+
 
 insert into Product (seller_name, product_name,product_price) values('ram','Potato','23');
 insert into Product (seller_name, product_name,product_price) values('shyam','Tomato','22');
