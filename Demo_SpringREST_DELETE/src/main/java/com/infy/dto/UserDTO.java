@@ -5,6 +5,7 @@ public class UserDTO {
 	private String fullname;
 	private String password;
 	private String emailId;
+	private String userType;
 	public String getUsername() {
 		return username;
 	}
@@ -29,4 +30,11 @@ public class UserDTO {
 	public void setEmailId(String emailId) {
 		this.emailId = emailId;
 	}
+	public String getUserType() {
+		return userType;
+	}
+	public void setUserType(String userType) {
+		this.userType = userType;
+	}
+	
 }

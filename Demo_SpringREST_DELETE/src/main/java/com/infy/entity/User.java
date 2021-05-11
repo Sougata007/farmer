@@ -12,6 +12,8 @@ public class User {
 	private String password;
 	@Column(name = "email_id")
 	private String emailId;
+	@Column(name = "user_type")
+	private String userType;
 	public String getUsername() {
 		return username;
 	}
@@ -36,6 +38,12 @@ public class User {
 	public void setEmailId(String emailId) {
 		this.emailId = emailId;
 	}
+	public String getUserType() {
+		return userType;
+	}
+	public void setUserType(String userType) {
+		this.userType = userType;
+	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -43,6 +51,7 @@ public class User {
 		result = prime * result + ((emailId == null) ? 0 : emailId.hashCode());
 		result = prime * result + ((fullname == null) ? 0 : fullname.hashCode());
 		result = prime * result + ((password == null) ? 0 : password.hashCode());
+		result = prime * result + ((userType == null) ? 0 : userType.hashCode());
 		result = prime * result + ((username == null) ? 0 : username.hashCode());
 		return result;
 	}
@@ -70,6 +79,11 @@ public class User {
 				return false;
 		} else if (!password.equals(other.password))
 			return false;
+		if (userType == null) {
+			if (other.userType != null)
+				return false;
+		} else if (!userType.equals(other.userType))
+			return false;
 		if (username == null) {
 			if (other.username != null)
 				return false;
@@ -77,5 +91,4 @@ public class User {
 			return false;
 		return true;
 	}
-	
 }

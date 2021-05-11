@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.infy.dto.CustomerDTO;
 import com.infy.dto.UserDTO;
+import com.infy.dto.productDTO;
 import com.infy.exception.InfyBankException;
 
 public interface CustomerService {
@@ -15,4 +16,6 @@ public interface CustomerService {
 	
 	public void registerUser(UserDTO userDTO) throws InfyBankException;
 	public String loginUser(String username) throws InfyBankException;
+	public String getUserType(String username) throws InfyBankException;
+	public List<productDTO> getCatalogue() throws InfyBankException;
 }
