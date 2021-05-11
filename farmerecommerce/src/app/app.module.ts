@@ -9,6 +9,8 @@ import { RegisterComponent } from './register/register.component';
 import {HttpClientModule} from '@angular/common/http';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { CartComponent } from './cart/cart.component';
+import { AddComponent } from './add/add.component';
+import { ViewproductComponent } from './viewproduct/viewproduct.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +19,9 @@ import { CartComponent } from './cart/cart.component';
     LoginComponent,
     RegisterComponent,
     DashboardComponent,
-    CartComponent
+    CartComponent,
+    AddComponent,
+    ViewproductComponent
   ],
   imports: [
     BrowserModule,

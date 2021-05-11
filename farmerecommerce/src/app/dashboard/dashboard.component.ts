@@ -11,7 +11,14 @@ import {productDTO} from './productDTO';
 export class DashboardComponent implements OnInit {
   public data:any;
   public data1:any;
+  val:number=0;
+  x:number=0;
+  y:number=0;
+  z:number=0;
+  tot:string="";
+  pname:string="";
   quantForm:FormGroup|any;
+  valcap:FormGroup|any;
   product:productDTO[]=[];
   constructor(private trans:TransferDataService,private serv:FarmerService,private fb:FormBuilder) {
     this.data = trans.getOption();
@@ -28,9 +35,25 @@ export class DashboardComponent implements OnInit {
       }
     )
   }
-  sendValueQty(Qty:string){
-    parseInt(Qty);
-    console.log(Qty);
+  sendValueQty(Qty:string,pname:string,price:string){
+    this.x=parseInt(Qty);
+    this.y=parseInt(price);
+    this.z= this.x * this.y;
+    this.tot=String(this.z);
+    this.valcap=this.fb.group({
+      "productName":[pname,[Validators.required]],
+      "price":[this.tot,[Validators.required]]
+    })
+    this.serv.makeCart(this.valcap.value).subscribe(
+      (a) => {
+        console.log(a);
+        alert("Added to Cart");
+      },
+      (b) => {
+        console.log(b.error.text);
+        alert("Added to Cart");
+      }
+    )
   }
   viewProducts(){
     this.serv.getAllProducts().subscribe(
@@ -43,11 +66,14 @@ export class DashboardComponent implements OnInit {
       }
     )
   }
+  captureName(Pname:string){
+    this.pname=Pname;
+  }
   ngOnInit(): void {
     this.getUserType();
     this.viewProducts();
     this.quantForm=this.fb.group({
-      "Quantity":['',[Validators.required]]
+      "Quantity":[this.val,[Validators.required]]
     })
   }
 

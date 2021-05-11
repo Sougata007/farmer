@@ -21,12 +21,30 @@
                     </form>
                     </td>
                     <td>
-                    <button class="btn btn-primary" [routerLink]="'/cart'" 
-                    (click)="sendValueQty(Quantity.value)">ADD TO CART</button>
+                    <button class="btn btn-primary"
+                    (click)="sendValueQty(Quantity.value,p.productName,p.productPrice)">ADD TO CART</button>
                     </td>
                   </tr>
                 </tbody>
+                
               </table>
+              <button class="btn btn-warning"
+                  style="width: 100%;align-content: center;" [routerLink]="'/cart'">VIEW CART</button>
         </div>
+    </div>
+    <div class="row justify-content-center" *ngIf="data1 == 'Seller' ">
+      <div class="row justify-content-center">
+          <div class="col-sm-12">
+            <div class="jumbotron">
+              <h1 class="display-4">Seller Operations</h1>
+              <hr class="my-4">
+              <p>Enjoy our exclusive seller benifits from here!</p>
+              <p class="lead">
+                <a class="btn btn-primary btn-lg" href="#" role="button" style="width: 100%;" [routerLink]="'/add'">Add/Update Product</a>
+                <a class="btn btn-primary btn-lg" href="#" role="button" style="width: 100%;" [routerLink]="'/view'">View all Products</a>
+              </p>
+            </div>
+          </div>
+      </div>
     </div>
 </div>

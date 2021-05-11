@@ -1,0 +1,33 @@
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-sm-8">
+            <div class="card">
+                <div class="card-header text-center">
+                    <h3>ADD/UPDATE FORM</h3>
+                </div>
+                <div class="card-body">
+                    <form [formGroup]="addForm">
+                        <div class="form-group">
+                            <label>Enter your UserName</label>
+                            <input type="text" class="form-control" formControlName="sellerName" #sellerName>
+                            <p *ngIf="addForm.controls.sellerName.touched && addForm.controls.sellerName.pristine" class="text-danger">This field cant be Empty</p>
+                        </div>
+                        <div class="form-group">
+                            <label>Enter the Product Name</label>
+                            <input type="text" class="form-control" formControlName="productName" #productName>
+                            <p *ngIf="addForm.controls.productName.touched && addForm.controls.productName.pristine" class="text-danger">This field cant be Empty</p>
+                        </div>
+                        <div class="form-group">
+                            <label>Enter the price</label>
+                            <input type="text" class="form-control" formControlName="productPrice" #productPrice>
+                            <p *ngIf="addForm.controls.productPrice.touched && addForm.controls.productPrice.pristine" class="text-danger">This field cant be Empty</p>
+                        </div>
+                        <button class="btn btn-primary"
+                        style="width: 100%;" (click)="addProduct()">ADD/UPDATE PRODUCT</button>
+                        <button class="btn btn-danger" style="width: 100%;" [routerLink]="'/dashboard'">GO BACK</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

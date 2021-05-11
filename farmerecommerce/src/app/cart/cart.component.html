@@ -1,1 +1,26 @@
-<p>cart works!</p>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-xl-8">
+            <table class="table">
+                <thead class="thead-dark">
+                  <tr>
+                    <th scope="col">Product Name</th>
+                    <th scope="col">Price</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let p of cart">
+                    <td>{{p.productName}}</td>
+                    <td>{{p.price}}</td>
+                  </tr>
+                  <button class="btn btn-primary"
+                    style="width: 125%;" (click)="calculatePrice()">CALCULATE TOTAL</button>
+                    <button class="btn btn-success"
+                    style="width: 125%;"[routerLink]="'/dashboard'">GO BACK</button>
+                </tbody>
+              </table>
+              <button class="btn btn-warning"
+              style="width: 100%;" *ngIf="toggle">PAY NOW</button>
+        </div>
+    </div>
+</div>
